@@ -1,0 +1,34 @@
+
+//Es la configuración de la colección Users de la DB
+
+//Importamos las librerías necesarias
+const mongoose = require('mongoose'); 
+const { Schema } = require('mongoose');
+
+//Estructura de la colección que vamos a crear
+const userSchema = new Schema({
+    nombre: {
+        type: String, 
+        required: true
+    },
+    email: {
+        type: String, 
+        required: true
+    },
+    address: {
+        type: String, 
+        required: true
+    },
+    age: {
+        type: Number, 
+        required: true
+    },
+    timestamp: {
+        type: Date, 
+        default: new Date()
+    }
+})
+
+//Exportamos la configuración con la colección
+module.exports = mongoose.model('users', userSchema);
+
