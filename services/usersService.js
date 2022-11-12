@@ -1,8 +1,6 @@
 const userModel = require('../models/userModels');
 
-
 module.exports = class {
-
     //servicio que inserta usuarios en la db
     async createUser(user) {
         await userModel.create(user)
@@ -31,3 +29,4 @@ module.exports = class {
         await userModel.findOneAndDelete(id)
     }
 }
+

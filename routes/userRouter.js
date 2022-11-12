@@ -9,6 +9,7 @@ module.exports = (router) => {
         .get('/formulario', userController.formulario)
         .get('/sucursales', userController.sucursales)
         .post('/formulario', userController.envioFormulario)
-        .delete('/delete/:id', userController.eliminar)
+        .post('/delete', userController.eliminar)
     return router;
 }
+
