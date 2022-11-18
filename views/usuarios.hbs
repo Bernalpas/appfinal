@@ -107,8 +107,18 @@
         <td>{{ address }} </td>
         <td>{{ age }} </td>
         <td>
-          <a href="javascript:void(0);" class="btn btn-success me-4">Update</a> 
-          <a href="javascript:void(0);" class="btn btn-danger delete" data-id="{{ _id }}">Eliminar</a> 
+          <a href="javascript:void(0);" class="btn btn-success me-4 edit" 
+          data-id="{{ _id }}"
+          data-nombre="{{ nombre }}" 
+          data-email="{{email}}" 
+          data-address="{{ address }}" 
+          data-age="{{ age }}"
+          >Update
+          </a> 
+          <a href="javascript:void(0);" class="btn btn-danger delete" 
+          data-id="{{ _id }}"
+          >Eliminar
+          </a> 
         </td>
       </tr>
       {{/each}}
@@ -121,7 +131,47 @@
 
 {{!-- Agregamos Modales para Actalizar y para Eliminar los datos --}}
 
-{{!-- Modal para Eliminar Datos --}}
+{{!-- Modal para Actualizar Datos --}}
+
+<form action="/usuarios" method="post" >
+<div class="modal fade" id="EditModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="myModalLabel">Editar Usuario</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" data-bs-target="#my-modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+              <label for="recipient-name" class="col-form-label">Id</label>
+              <input type="text" class="form-control id" id="id" name="id" required>
+            </div>
+            <div class="mb-3">
+              <label for="recipient-name" class="col-form-label">Nombre</label>
+              <input type="text" class="form-control nombre" id="nombre" name="nombre" required>
+            </div>
+            <div class="mb-3">
+              <label for="recipient-name" class="col-form-label">Email</label>
+              <input type="text" class="form-control email" id="email" name="email" required>
+            </div>
+            <div class="mb-3">
+              <label for="recipient-name" class="col-form-label">Dirección</label>
+              <input type="text" class="form-control address" id="address" name="address" required>
+            </div>
+            <div class="mb-3">
+              <label for="recipient-name" class="col-form-label">Edad</label>
+              <input type="number" class="form-control age" id="age" name="age" required>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <input type="hidden" name="id" class="form-control" required>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-bs-target="#my-modal">Close</button>
+          <button type="submit" class="btn btn-primary">Actualizar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
 
 
 
@@ -132,15 +182,15 @@
                 <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="myModalLabel">Borrar Producto</h5>
+                        <h5 class="modal-title" id="myModalLabel">Eliminar Usuario</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" data-bs-target="#my-modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body text-center">
                     <strong>¿Estás seguro de borrar este elemento?</strong>
                     </div>
                     <div class="modal-footer">
                     <input type="hidden" name="id" class="form-control" required>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" data-bs-target="#my-modal" aria-label="Close"></button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-success">Eliminar</button>
                     </div>
                         </div>
@@ -149,22 +199,28 @@
         </form>
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-<script src="/assets/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+{{!-- <script src="/assets/jquery.min.js"></script> --}}
 
 {{!-- Función para Eliminar y Actualizar --}}
 
 <script>
 $(document).ready(function(){
     //Mostrar datos al modal para editar registro
-    $('#mytable').on('click', '.edit', function(){
+ $('#mytable').on('click', '.edit', function(){
         let _id = $(this).data('id');
         let nombre = $(this).data('nombre');
         let email = $(this).data('email');
         let address = $(this).data('address');
         let age = $(this).data('age');
-        $('#DeleteModal').modal('show');
-    })
+        $('#EditModal').modal('show');
+        $('.id').val(_id);
+        $('.nombre').val(nombre);
+        $('.email').val(email);
+        $('.address').val(address);
+        $('.age').val(age);
+    }) 
 
     // Modal DELETE     
     $('#mytable').on('click', '.delete', function(){

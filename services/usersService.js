@@ -17,16 +17,20 @@ module.exports = class {
     }
 
     //servicio que actualiza a los usuarios
-    async updateUser(id, user){
-        const userToUpdate = await userModel.findOneAndUpdate(id, user, {
+    async updateUser(id, user) {
+        const userToUpdate = await userModel.findByIdAndUpdate(id, user, {
             new: true,
         })
         return userToUpdate;
     }
+
 
     //servicio que elimina a los usuarios
     async delteUser(id){
         await userModel.findOneAndDelete(id)
     }
 }
+
+
+
 
